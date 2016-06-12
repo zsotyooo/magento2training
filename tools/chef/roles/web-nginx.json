@@ -1,0 +1,62 @@
+{
+    "name": "web-nginx",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Nginx HTTP server role",
+    "default_attributes": {
+        "nginx": {
+            "default_site_enabled": false,
+            "multi_accept": "on",
+            "server_tokens": "off"
+        },
+        "php-fpm": {
+            "package_name": "php56w-fpm",
+            "service_name": "php-fpm",
+            "listen_owner": "nginx",
+            "listen_group": "nginx",
+            "pools": {
+                "www": {
+                    "enable": true,
+                    "max_children": "50",
+                    "start_servers": "5",
+                    "min_spare_servers": "5",
+                    "max_spare_servers": "35",
+                    "process_manager": "dynamic",
+                    "php_options": {
+                        "php_value[error_log]": "/var/log/php-fpm/www-error.log",
+                        "php_value[session.save_path]": "/var/lib/php/session",
+                        "php_flag[log_errors]": "on"
+                    }
+                }
+            }
+        },
+        "services": {
+            "nginx": [
+                "enable",
+                "start"
+            ],
+            "php-fpm": [
+                "enable",
+                "start"
+            ]
+        }
+    },
+    "override_attributes": {
+        "php": {
+            "directives": {
+                "date.timezone": "UTC",
+                "max_input_vars": "10000",
+                "xdebug.max_nesting_level": "300",
+                "max_execution_time": 600,
+                "always_populate_raw_post_data": "-1"
+            }
+        }
+    },
+    "run_list": [
+        "recipe[nginx]",
+        "recipe[php-fpm]",
+        "recipe[config-driven-helper::services]",
+        "recipe[config-driven-helper::nginx-sites]",
+        "recipe[magento2::ssl-termination]"
+    ]
+}

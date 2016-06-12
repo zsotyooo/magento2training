@@ -1,0 +1,127 @@
+{
+    "name": "development",
+    "description": "",
+    "json_class": "Chef::Environment",
+    "chef_type": "environment",
+    "default_attributes": {
+        "iptables-standard": {
+            "allowed_incoming_ports": {
+                "http": "80",
+                "https": "443",
+                "ssh": "22",
+                "memcached": "11211",
+                "redis": "6379",
+                "mysql": "3306",
+                "mailcatcher": "1080"
+            }
+        },
+        "hostfile_entries": {
+            "127.0.0.1": {
+                "main_host": "localhost",
+                "aliases": [
+                    "magento2training.dev"
+                ]
+            },
+            "::1": {
+                "main_host": "localhost",
+                "aliases": [
+                    "localhost",
+                    "localhost.localdomain",
+                    "localhost6",
+                    "localhost6.localdomain6"
+                ]
+            }
+        },
+        "iptables-ng": {
+            "enabled_ip_versions": [4]
+        },
+        "mailcatcher": {
+            "enabled": true
+        },
+        "magento": {
+            "instances": {
+                "magento": {
+                    "root_directory": "/vagrant",
+                    "db": {
+                        "username": "magento",
+                        "dbname": "magentodb"
+                    },
+                    "host": {
+                        "hostname": "http://magento2training.dev/",
+                        "secure_hostname": "https://magento2training.dev/"
+                    },
+                    "memcached": {
+                        "port": 11211
+                    },
+                    "redis": {
+                        "cache_database": 0,
+                        "page_cache_database": 1
+                    },
+                    "sales_increment_prefix": "0",
+                    "get_magento_mode_from_this_site_config": "magento2training"
+                }
+            }
+        },
+        "mysql": {
+            "databases": {
+                "magentodb": {}
+            },
+            "users": {
+                "magento": {
+                    "database_name": "magentodb",
+                    "host": "%"
+                }
+            }
+        },
+        "nginx": {
+            "sites": {
+                "magento2training": {
+                    "inherits": "magento",
+                    "server_name": "magento2training.dev",
+                    "capistrano": false,
+                    "php_server_variables": {},
+                    "mage_mode": "developer",
+                    "ssl_termination": true
+                }
+            },
+            "ssl-termination": {
+                "magento2training": {
+                    "secure_port": 443,
+                    "server_name": "magento2training.dev",
+                    "ssl": {
+                        "certfile": "magento.crt",
+                        "keyfile": "magento.key",
+                        "key_in_databag": true
+                    },
+                    "basic_authentication": {
+                        "ip_whitelist": {},
+                        "enabled": false
+                    }
+                }
+            }
+        },
+        "packages": [
+            "git",
+            "jemalloc",
+            "mc",
+            "sendmail",
+            "vim"
+        ]
+    },
+    "override_attributes": {
+        "data-bag-merge": {
+            "environments": {
+                "encrypted": false
+            }
+        },
+        "mysql": {
+            "bind_address": "0.0.0.0"
+        },
+        "php": {
+            "directives": {
+                "display_errors": "on",
+                "html_errors": "on"
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "redis",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Redis server role",
+    "default_attributes": {
+        "redisio": {
+            "package_install": true,
+            "package_name": "redis30u",
+            "safe_install": false,
+            "default_settings": {
+                "loglevel": "warning",
+                "unixsocket": "/tmp/redis.sock",
+                "unixsocketperm": "777"
+            },
+            "servers": [
+                {
+                    "name": "master",
+                    "port": "6379"
+                }
+            ]
+        }
+    },
+    "run_list": [
+        "recipe[tools::remove_installed_redis]",
+        "recipe[redisio]",
+        "recipe[redisio::enable]"
+    ]
+}

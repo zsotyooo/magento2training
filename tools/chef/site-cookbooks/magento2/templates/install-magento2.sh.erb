@@ -1,0 +1,8 @@
+php <%= @instance_details['root_directory'] %>/bin/magento setup:install \
+--admin-firstname=Magento --admin-lastname=User --admin-email=someadmin@example.com --admin-user=admin --admin-password=admin123 \
+--base-url=<%= @instance_details['host']['hostname'] %> --backend-frontname=admin \
+--db-host=<%= @db_host %> --db-name=<%= @instance_details['db']['dbname'] %> --db-user=<%= @instance_details['db']['username'] %> --db-password=<%= @db_password %> \
+--language=en_GB --currency=GBP --timezone=UTC \
+--use-rewrites=1 \
+--session-save=db \
+--sales-order-increment-prefix=<%= @instance_details['sales_increment_prefix'] %>

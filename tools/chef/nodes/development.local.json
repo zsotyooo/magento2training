@@ -1,0 +1,18 @@
+{
+    "run_list": [
+        "recipe[data-bag-merge::environment]",
+        "recipe[tools::yum_cache_cleaner]",
+        "recipe[yum-epel]",
+        "recipe[yum-ius]",
+        "role[db-mysql56]",
+        "role[php56-development]",
+        "role[web-nginx]",
+        "role[memcached]",
+        "role[redis]",
+        "role[varnish]",
+        "role[bdd]",
+        "recipe[config-driven-helper::packages]",
+        "recipe[config-driven-helper::iptables-standard]",
+        "role[magento2]"
+    ]
+}

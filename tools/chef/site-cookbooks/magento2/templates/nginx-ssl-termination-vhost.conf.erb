@@ -1,0 +1,34 @@
+server {
+    listen <%= @params['secure_port'] %> ssl;
+    server_name ~(<%= @params['server_name'] %>)$;
+
+    ####################################################################################
+    ## SSL CONFIGURATION
+    ssl_certificate     <%= node['nginx']['ssl_dir'] %>/<%= @params['server_name'] %>/<%= @params['ssl']['certfile'] %>;
+    ssl_certificate_key <%= node['nginx']['ssl_dir'] %>/<%= @params['server_name'] %>/<%= @params['ssl']['keyfile'] %>;
+
+    # psuedo-replicate SSL termination. The main difference being that
+    # F5 SSL termination does not change the TCP packet source, wheras Nginx
+    # can't do that, so adds IP address forwarding headers
+    location / {
+        <% if !@params['basic_authentication']['ip_whitelist'].empty?  %>
+            satisfy any;
+            <% @params['basic_authentication']['ip_whitelist'].each do |ip| %>
+            allow <%= ip %>;
+            <% end %>
+            deny all;
+        <% end %>
+        <% if @params['basic_authentication']['enabled'] == 'true' %>
+            auth_basic "Restricted";
+            auth_basic_user_file <%= @params['additional_config_path'] %>/.htpasswd"
+        <% end %>
+
+        proxy_pass  http://localhost;
+        proxy_redirect off;
+        proxy_buffering off;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+}

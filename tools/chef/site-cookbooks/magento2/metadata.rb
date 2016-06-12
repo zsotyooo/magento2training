@@ -1,0 +1,12 @@
+name        'magento2'
+maintainer  'Inviqa'
+license     'Apache 2.0'
+description 'Magento2 specific cookbook'
+version     '1.0.0'
+
+depends 'config-driven-helper'
+depends 'rbenv'
+depends 'cron', '~> 1.4.0'
+depends 'nginx'
+depends 'hostsfile'
+depends 'nodejs'

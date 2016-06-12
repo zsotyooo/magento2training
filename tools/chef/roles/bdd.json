@@ -1,0 +1,13 @@
+{
+    "name": "bdd",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Install BDD tools",
+    "default_attributes": {
+        "packages": [
+            "firefox",
+            "xorg-x11-server-Xvfb",
+            "unzip"
+        ]
+    }
+}

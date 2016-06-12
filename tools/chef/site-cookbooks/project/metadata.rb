@@ -1,0 +1,5 @@
+name              "project"
+maintainer        "Inviqa"
+license           "Apache 2.0"
+description       "magento2training specific cookbooks"
+version           "0.0.1"

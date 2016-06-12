@@ -1,0 +1,59 @@
+{
+    "name": "magento2",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Magento 2 installation",
+    "default_attributes": {
+        "nginx": {
+            "shared_config": {
+                "magento": {
+                    "capistrano": true,
+                    "insecure_port": 8080,
+                    "docroot": "/vagrant",
+                    "protocols": [
+                        "http"
+                    ],
+                    "restricted_dirs": [
+                        "/media/customer/",
+                        "/media/downloadable/",
+                        "/media/import/",
+                        "~ cron\\.php"
+                    ],
+                    "php_settings_frontend": {
+                        "memory_limit": "768M"
+                    },
+                    "php_settings_admin": {
+                        "memory_limit": "768M"
+                    },
+                    "template": "nginx-site.conf.erb",
+                    "cookbook": "magento2",
+                    "additional_config_path": "/vagrant/conf.d",
+                    "mage_mode": "developer",
+                    "fastcgi_param_settings": {},
+                    "realpath_document_root": true,
+                    "custom_fastcgi_settings": {
+                        "fastcgi_read_timeout": "600s",
+                        "fastcgi_connect_timeout": "600s",
+                        "fastcgi_buffer_size": "128k",
+                        "fastcgi_buffers": "128 128k",
+                        "fastcgi_busy_buffers_size": "1024k",
+                        "fastcgi_temp_file_write_size": "1024k"
+                    }
+                }
+            }
+        },
+        "php": {
+            "directives": {
+                "memory_limit": "768M"
+            }
+        }
+    },
+    "run_list": [
+        "recipe[composer]",
+        "recipe[magento2::add-magento2-installer-script]",
+        "recipe[magento2::add-magento-configuration-script]",
+        "recipe[magento2::nodejs]",
+        "recipe[magento2::setup_hosts_file]",
+        "recipe[magento2::cron]"
+    ]
+}

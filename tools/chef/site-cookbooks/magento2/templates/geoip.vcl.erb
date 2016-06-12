@@ -1,0 +1,74 @@
+import geoip2;
+
+sub geoip_load {
+    new db = geoip2.geoip2("<%= @varnish['GeoIP2']['database_location'] %>");
+}
+
+sub geoip_set_new_host {
+    set req.http.x-geoip-country = db.lookup("country/names/en", std.ip(regsub(req.http.X-Forwarded-For, "[, ].*$", ""), client.ip));
+    set req.http.x-new-host = req.http.host;
+
+    <% @varnish['GeoIP2']['environments'].each do |environment_id_string, environment_rules| %>
+    if (req.http.host ~ "<%= environment_id_string %>") {
+        if (req.http.host ~ "admin") {
+            set req.http.x-new-host = req.http.host;
+        }
+        <% environment_rules['countries'].to_hash.each do |country, url| %>
+        elseif (req.http.x-geoip-country == "<%= country %>}") {
+            set req.http.x-new-host = "<%= url %>";
+        }
+        <% end %>
+        else {
+            set req.http.x-new-host = "<%= environment_rules['default'] %>";
+        }
+    }
+    <% end %>
+
+    unset req.http.x-geoip-country;
+}
+
+sub geoip_set_redirect {
+    set req.http.x-redir = "http://" + req.http.x-new-host + req.url;
+    unset req.http.x-new-host;
+}
+
+sub geoip_set_cookie {
+    set req.http.x-set-geoip-cookie = 1;
+}
+
+sub geoip_redirect {
+    call geoip_set_new_host;
+    if(req.http.host != req.http.x-new-host) {
+        call geoip_set_redirect;
+    } else {
+        call geoip_set_cookie;
+    }
+}
+
+sub geoip_switch_store {
+    set req.url = "/";
+    set req.http.x-new-host = req.http.host;
+    call geoip_set_redirect;
+    call geoip_set_cookie;
+}
+
+sub geoip_recv {
+    if (req.url ~ "switchstore") {
+        call geoip_switch_store;
+    } elseif (req.http.Cookie !~ "stop-geoip-redirect") {
+        call geoip_redirect;
+    }
+}
+
+sub geoip_deliver {
+    if (req.http.x-set-geoip-cookie) {
+       set resp.http.Set-Cookie = "stop-geoip-redirect=true;path=/;expires=" + (now+1y) + ";";
+       unset req.http.x-set-geoip-cookie;
+    }
+
+    if (req.http.x-redir) {
+       set resp.http.Location = req.http.x-redir;
+       set resp.status = 302;
+       unset req.http.x-redir;
+    }
+}

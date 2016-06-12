@@ -1,0 +1,43 @@
+{
+    "name": "db-mysql56",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "MySQL 5.6 database",
+    "default_attributes": {
+        "services": {
+            "mysql": [
+                "enable",
+                "start"
+            ]
+        }
+    },
+    "override_attributes": {
+        "mysql": {
+            "client": {
+                "packages": [
+                    "mysql56u",
+                    "mysql56u-devel"
+                ]
+            },
+            "server": {
+                "packages": [
+                    "mysql56u-devel",
+                    "mysql56u-server"
+                ]
+            },
+            "tunable": {
+                "wait_timeout": "1400"
+            },
+            "version": "5.6"
+        }
+    },
+    "run_list": [
+        "recipe[tools::upgrade-mysql-libs]",
+        "recipe[yum-ius]",
+        "recipe[mysql::server]",
+        "recipe[mysql::client]",
+        "recipe[config-driven-helper::services]",
+        "recipe[config-driven-helper::mysql-databases]",
+        "recipe[config-driven-helper::mysql-users]"
+    ]
+}

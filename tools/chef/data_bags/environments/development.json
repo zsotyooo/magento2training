@@ -1,0 +1,34 @@
+{
+    "id": "development",
+    "default_attributes": {
+        "mysql": {
+            "server_root_password": "984C42CF342f7j6",
+            "server_repl_password": "984C42CF342f7j6",
+            "server_debian_password": "984C42CF342f7j6",
+            "connections": {
+                "default": {
+                    "password": "984C42CF342f7j6"
+                }
+            },
+            "databases": {
+                "magentodb": {}
+            },
+            "users": {
+                "magento": {
+                    "password": "magento"
+                }
+            }
+        },
+        "magento": {
+            "db": {
+                "password": "magento"
+            }
+        },
+        "ssl_certs": {
+            "magento2training": {
+                "certificate": "-----BEGIN CERTIFICATE-----\nMIIEfDCCA2SgAwIBAgIBADANBgkqhkiG9w0BAQUFADCBiTELMAkGA1UEBhMCVUsx\nCTAHBgNVBAgMADEPMA0GA1UECgwGSW52aXFhMQ8wDQYDVQQHDAZMb25kb24xHzAd\nBgNVBAMMFioubWFnZW50bzJ0cmFpbmluZy5kZXYxCTAHBgNVBAsMADEhMB8GCSqG\nSIb3DQEJARYSc3VwcG9ydEBpbnZpcWEuY29tMB4XDTE2MDYxMjA5NDkxMVoXDTE3\nMDYxMjA5NDkxMVowgYkxCzAJBgNVBAYTAlVLMQkwBwYDVQQIDAAxDzANBgNVBAoM\nBkludmlxYTEPMA0GA1UEBwwGTG9uZG9uMR8wHQYDVQQDDBYqLm1hZ2VudG8ydHJh\naW5pbmcuZGV2MQkwBwYDVQQLDAAxITAfBgkqhkiG9w0BCQEWEnN1cHBvcnRAaW52\naXFhLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMyL/lPfbohU\n4ath4AEG+QDKTJCQLVWTT2ZM5LOJTyWVqG1n907xv97RhIbOZxPRbDzDsN5axoZ8\nknNvisiwJi3JVjh4TwF3yI7D3dcxrgJu/HSeiUg/DZ2hC50UNPOJ0FA7Ygwf7nt3\nHJSmdD/rk1dNV8XecroJx8DH7V16nhVpPh7V0Vu0LASREXPGY4zDhM/7KpusafkZ\nILoNcL03uTeFBtHKwfR0psYt39sTgzl9JRAEBW749jbEZn1OLs0suAQvI0ZdP6CN\nzpqlItqSYNYhBXdgOF9OE3qToPOLgHaT2wlcH5T8V2i7XyeY4h0aWZnLKkwi4fr0\nFxUsG1pEExsCAwEAAaOB7DCB6TAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTh\nRdqTtBocw+XHxOCvgMAypwNtajCBtgYDVR0jBIGuMIGrgBThRdqTtBocw+XHxOCv\ngMAypwNtaqGBj6SBjDCBiTELMAkGA1UEBhMCVUsxCTAHBgNVBAgMADEPMA0GA1UE\nCgwGSW52aXFhMQ8wDQYDVQQHDAZMb25kb24xHzAdBgNVBAMMFioubWFnZW50bzJ0\ncmFpbmluZy5kZXYxCTAHBgNVBAsMADEhMB8GCSqGSIb3DQEJARYSc3VwcG9ydEBp\nbnZpcWEuY29tggEAMA0GCSqGSIb3DQEBBQUAA4IBAQAbjlemkqKMfZ8OwX5PIXHV\nGvF9EqfXVAsMx0KosZn2r/s7We0Xyv8rc7v9h3PK2f1mxXMML1Jwe6GvLSDYvxP7\nbrki06pMoQdnevIxTcYXSLFpOIpwb4UfaB7oIUFQ7o07/Of8t4tjTDgHwQ80WR8l\nFQlp+g99rIPaoqhrH1/YsZMNWwRcdhsAFzsmlcbxh+wGwRIt8j5hzkJMKTMp5BQ7\n6/y1RDmbIUfz3rwZbj8Y0mPS2FvE5qJTnb10KBRFPfomtdqZw46TH7BUczmy3wVU\no8q3C19jVa74w0/M8MY1Q3oIMpGngmorHX43ORsOZfJ6DRMjQrUaonh/5LvIyUvJ\n-----END CERTIFICATE-----",
+                "key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAzIv+U99uiFThq2HgAQb5AMpMkJAtVZNPZkzks4lPJZWobWf3\nTvG/3tGEhs5nE9FsPMOw3lrGhnySc2+KyLAmLclWOHhPAXfIjsPd1zGuAm78dJ6J\nSD8NnaELnRQ084nQUDtiDB/ue3cclKZ0P+uTV01Xxd5yugnHwMftXXqeFWk+HtXR\nW7QsBJERc8ZjjMOEz/sqm6xp+Rkgug1wvTe5N4UG0crB9HSmxi3f2xODOX0lEAQF\nbvj2NsRmfU4uzSy4BC8jRl0/oI3OmqUi2pJg1iEFd2A4X04TepOg84uAdpPbCVwf\nlPxXaLtfJ5jiHRpZmcsqTCLh+vQXFSwbWkQTGwIDAQABAoIBAQC8n4A5sfnI6JVu\nKIScDeUDUIpIaVwU5RI8IT5pPX7qBtdZhJ0vhIlOHWGbuqydPusUIdVxRr55+FhI\n8RxHMwESCe9jhbY9gUtGM+LX9e0kO1q85BFuuQ6CRKdkA+VMi9K4mfoxeiS+YDnP\n7quW4lNuF1mQkzCy1CALa5I9OLyculctouob1X58nLnVHraR1ql45Ant/St6ABL3\npvFX2GMLvxL263hZTqpvRtlRRCbGXz+kmji0IDpNQ+R6sZspXTvvA9PCk8GkYQR8\nEoPGxWS5For4i9r/KHN7uK0u9Syt+3XF2iAlqPXrs/JDdLUZK0NYk4LUoAJs4TGl\n3IdG0KYhAoGBAP0CuSspux8bcGz78hlpRrzuJu+rjvZANV7fR9jRdSVYONDxm8oJ\nYPjkOvddnn6h3vCGPnXTRz9VVDybvMvthWTH7FaNv5MNOwm/Iqxl9LGyQ5+vnWzY\nCZZ1ZiFGtfeMrCIz0f2oYY8IAnKNkNSExsFhPBIhw5XfhZKanwVA+5jLAoGBAM72\nrr+XQIOOGrkSin8PcSBZBb2nuwk+BgA3rNsAn5BM//5+rsDdT1kWZbM2xiHQW8f4\no9U+7mjaKx1G0/0gSL5S067cNV30n+ovL8tgc7u+h/qx6Z+tfsFlc60cjlJLa6bi\nlApZCle3LK9AKVqVhD4NAnv+ZBiu4OPrNs7LIDTxAoGAXi7BVzv1mCLSuv8epC74\nUiQlAlrOoQRN2b8sM53lCb3JiJ4n7BGJs5ziBmsnMOR45PhUD/BSOVU+QkGHCjKk\n0VtKsv2ZLthh/cLU2XAqomtFmQ/6fiX9i7CwD/sOidQnz6OSq+YeSuwkXRgtra6v\nfhUAE4/WCthmFKjSQVZrUfkCgYA3tA9Og8AaaFnq7AGYtyhEg5FW/VkK4MWus01z\n2FQZ+49/CMuyHx6nJK8UsC5dlX3Oca5uy7RRRj8KbzDJVTIe/533108JzbhoyHB9\ntaUQp/RjVhVCI+kU1mBu/FuV7LS5wwwDSPnOp/9/364BsnJYXRoJE2wPdKoUzg7/\nU46EkQKBgDsdfa69lgHgmU8liLLasuj5pr2UX8ExwSRauGcCIBZIgEMVd5Ci/NTa\nZqhiOnxziz4AyuxXunBA5jhmcnUlGEU9WQ5g6YGVrBqXgNtgnpTHZbr0BJ8g5fzM\n6xJ93Rq3MXV/iYlol3BrkOSFaGdPxRKIo6cgaOObHqL4rn3FqKWc\n-----END RSA PRIVATE KEY-----"
+            }
+        }
+    }
+}

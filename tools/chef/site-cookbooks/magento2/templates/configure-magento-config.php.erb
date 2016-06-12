@@ -1,0 +1,58 @@
+<?php
+
+$environmentConfigFile = '<%= @instance_details['root_directory'] %>/app/etc/env.php';
+$configuration = require $environmentConfigFile;
+
+$configuration['cache']['frontend']['default']['backend'] = 'Cm_Cache_Backend_Redis';
+$configuration['cache']['frontend']['default']['backend_options'] = [
+    'server' => "<%= @redis_host %>",                                                       // IP or absolute path to unix socket
+    'port' => "<%= @magento['redis']['port'] %>",
+    'persistent' => "<%= @magento['redis']['persistent'] %>",                               // Specify a unique string like "cache-db0" to enable persistent connections.
+    'database' => "<%= @instance_details['redis']['cache_database'] %>",
+    'password' => "<%= @magento['redis']['password'] %>",
+    'force_standalone' => "<%= @magento['redis']['force_standalone'] %>",                   // 0 for phpredis, 1 for standalone PHP
+    'connect_retries' => "<%= @magento['redis']['connection_retries'] %>",                  // Reduces errors due to random connection failures
+    'read_timeout' => "<%= @magento['redis']['read_timeout'] %>",                           // Set read timeout duration
+    'automatic_cleaning_factor' => "<%= @magento['redis']['automatic_cleaning_factor'] %>", // Disable it if you don't need it
+    'compress_data' => "<%= @magento['redis']['compress_data'] %>",                         // 0-9 for compression level, recommended: 0 or 1
+    'compress_tags' => "<%= @magento['redis']['compress_tags'] %>",                         // 0-9 for compression level, recommended: 0 or 1
+    'compress_threshold' => "<%= @magento['redis']['compress_threshold'] %>",               // Strings below this size will not be compressed
+    'compression_lib' => "<%= @magento['redis']['compression_lib'] %>",                     // Supports gzip, lzf and snappy,
+    'use_lua' => '0'                                                                        // Lua scripts should be used for some operations
+];
+
+$configuration['cache']['frontend']['page_cache']['backend'] = 'Cm_Cache_Backend_Redis';
+$configuration['cache']['frontend']['page_cache']['backend_options'] = [
+    'server' => "<%= @redis_host %>",                                                       // IP or absolute path to unix socket
+    'port' => "<%= @magento['redis']['port'] %>",
+    'persistent' => "<%= @magento['redis']['persistent'] %>",                               // Specify a unique string like "cache-db0" to enable persistent connections.
+    'database' => "<%= @instance_details['redis']['page_cache_database'] %>",
+    'password' => "<%= @magento['redis']['password'] %>",
+    'force_standalone' => "<%= @magento['redis']['force_standalone'] %>",                   // 0 for phpredis, 1 for standalone PHP
+    'connect_retries' => "<%= @magento['redis']['connection_retries'] %>",                  // Reduces errors due to random connection failures
+    'read_timeout' => "<%= @magento['redis']['read_timeout'] %>",                           // Set read timeout duration
+    'automatic_cleaning_factor' => "<%= @magento['redis']['automatic_cleaning_factor'] %>", // Disable it if you don't need it
+    'compress_data' => "<%= @magento['redis']['compress_data'] %>",                         // 0-9 for compression level, recommended: 0 or 1
+    'compress_tags' => "<%= @magento['redis']['compress_tags'] %>",                         // 0-9 for compression level, recommended: 0 or 1
+    'compress_threshold' => "<%= @magento['redis']['compress_threshold'] %>",               // Strings below this size will not be compressed
+    'compression_lib' => "<%= @magento['redis']['compression_lib'] %>",                     // Supports gzip, lzf and snappy,
+    'use_lua' => '0'                                                                        // Lua scripts should be used for some operations
+];
+
+$configuration['http_cache_hosts'] = [
+    [
+        'host' => '127.0.0.1',
+        'port' => '80',
+    ]
+];
+
+$configuration['session'] = [
+    'save' => "memcache",
+    'save_path' => "tcp://<%= @memcached_host %>:<%= @instance_details['memcached']['port'] %>?persistent=1&weight=1&timeout=10&retry_interval=10",  // e.g. for memcache session save handler tcp://10.0.0.1:11211?persistent=1&weight=2&timeout=10&retry_interval=10
+    'session_cache_limiter' => 'nocache'                                                                                                             //see http://php.net/manual/en/function.session-cache-limiter.php#82174 for possible values -->
+];
+
+$configuration['MAGE_MODE'] = '<%= @mage_mode %>';
+
+$content = "<?php\n" . 'return ' . var_export($configuration, 1) . ';';
+file_put_contents($environmentConfigFile, $content);
