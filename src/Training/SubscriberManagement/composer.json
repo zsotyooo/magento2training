@@ -1,0 +1,17 @@
+{
+    "name": "training/subscriber_management",
+    "description": "training subscriber management module",
+    "require": {
+        "magento/framework": "100.0.*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Training\\SubscriberManagement\\": ""
+        }
+    }
+}

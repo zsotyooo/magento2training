@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="subscriber_comment" type="Training\SubscriberServiceContract\Api\Data\SubscriberInterface">
+            <join reference_table="training_subscribers" reference_field="email" join_on_field="email">
+                <field>comment</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+</config>
